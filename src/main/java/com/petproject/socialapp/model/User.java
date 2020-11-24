@@ -23,6 +23,7 @@ public class User {
 
     @OneToMany
     private Set<Post> post;
+
     private String email;
 
 }

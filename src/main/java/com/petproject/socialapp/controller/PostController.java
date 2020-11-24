@@ -4,6 +4,7 @@ package com.petproject.socialapp.controller;
 import com.petproject.socialapp.model.Post;
 
 import com.petproject.socialapp.service.PostService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +35,9 @@ public class PostController {
 
     @PutMapping("/posts/{id}")
     public void updatePost(@PathVariable Long id, @RequestBody Post post){
-        postService.updatePost(id, post);
+        Post existingPost = postService.findById(id);
+        BeanUtils.copyProperties(post, existingPost);
+        postService.save(existingPost);
     }
 
     @DeleteMapping("/posts/{id}")

@@ -2,6 +2,7 @@ package com.petproject.socialapp.controller;
 
 import com.petproject.socialapp.model.Location;
 import com.petproject.socialapp.service.LocationService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -32,8 +33,10 @@ public class LocationController {
     }
 
     @PutMapping("/locations/{id}")
-    public void editLocation( @PathVariable Long id, @RequestBody Location location){
-        locationService.updateLocation(id, location);
+    public void updateLocation( @PathVariable Long id, @RequestBody Location location){
+        Location existingLocation = locationService.findById(id);
+        BeanUtils.copyProperties(location, existingLocation);
+        locationService.save(existingLocation);
     }
 
     @DeleteMapping("/locations/{id}")

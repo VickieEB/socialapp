@@ -3,6 +3,7 @@ package com.petproject.socialapp.controller;
 import com.petproject.socialapp.model.Location;
 import com.petproject.socialapp.model.User;
 import com.petproject.socialapp.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -34,8 +35,9 @@ public class UserController {
 
     @PutMapping("/users/{id}")
     public void updateUser(@PathVariable Long id, @RequestBody User user){
-        userService.updateUser(id, user);
-
+        User existingUser = userService.findById(id);
+        BeanUtils.copyProperties(user,existingUser);
+        userService.save(existingUser);
     }
 
     @DeleteMapping("/users/{id}")
