@@ -3,6 +3,7 @@ package com.petproject.socialapp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -16,7 +17,7 @@ public class Location {
     private Long id;
     private String name;
 
-    @OneToOne
-    private User user;
+    @OneToMany
+    private Set<User> user;
 
 }
