@@ -26,6 +26,14 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+
+    public List<User> findUsersByLocationId(Long locationId){
+        List<User> users = new ArrayList<>();
+        userRepository.findUserByLocationId(locationId).forEach(users::add);
+        return users;
+    }
+
+
     public void save(User user){
         userRepository.save(user);
     }

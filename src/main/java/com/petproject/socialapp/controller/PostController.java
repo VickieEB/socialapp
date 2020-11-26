@@ -28,6 +28,11 @@ public class PostController {
         return postService.findById(id);
     }
 
+    @GetMapping("/posts/user/{id}")
+    public List<Post> getPostsByUserId(@PathVariable Long id){
+        return postService.findByUserId(id);
+    }
+
     @PostMapping("/posts")
     public void addPost(@RequestBody Post post){
         postService.save(post);

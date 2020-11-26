@@ -17,7 +17,7 @@ public class Location {
     private Long id;
     private String name;
 
-    @OneToMany
-    private Set<User> user;
+//    @OneToMany
+//    private Set<User> user;
 
 }

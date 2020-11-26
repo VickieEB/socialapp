@@ -28,6 +28,11 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @GetMapping("/users/location/{id}")
+    public List<User> getUsersByLocationId(@PathVariable Long id){
+        return userService.findUsersByLocationId(id);
+    }
+
     @PostMapping("/users")
     public void addUser(@RequestBody User user){
         userService.save(user);

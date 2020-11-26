@@ -15,10 +15,10 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String details;
     private String postdate;
 
     @ManyToOne
     private User user;
-    private String details;
 
 }

@@ -35,7 +35,6 @@ public class StudentService {
         Student student = studentRepository.findById(id).orElse(null);
        return convertToDto(student);
     }
-
     public void deleteById(Long id){
         studentRepository.deleteById(id);
     }

@@ -25,6 +25,12 @@ public class PostService {
         return posts;
     }
 
+    public List<Post> findByUserId(Long userId){
+        List<Post> posts = new ArrayList<>();
+        postRepository.findByUserId(userId).forEach(posts::add);
+        return posts;
+    }
+
     public Post findById(Long id){
         return postRepository.findById(id).orElse(null);
     }
