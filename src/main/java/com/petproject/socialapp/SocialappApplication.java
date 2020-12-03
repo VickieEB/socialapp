@@ -1,6 +1,6 @@
 package com.petproject.socialapp;
 
-import com.petproject.socialapp.security.SprinngSecurityAuditorAware;
+import com.petproject.socialapp.security.SpringSecurityAuditorAware;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ public class SocialappApplication {
 
 	@Bean
 	public AuditorAware<String> auditorAware(){
-		return new SprinngSecurityAuditorAware();
+		return new SpringSecurityAuditorAware();
 	}
 
 	public static void main(String[] args) {

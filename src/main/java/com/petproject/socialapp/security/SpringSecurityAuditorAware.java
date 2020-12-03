@@ -4,7 +4,7 @@ import org.springframework.data.domain.AuditorAware;
 
 import java.util.Optional;
 
-public class SprinngSecurityAuditorAware implements AuditorAware<String> {
+public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
 
     @Override
