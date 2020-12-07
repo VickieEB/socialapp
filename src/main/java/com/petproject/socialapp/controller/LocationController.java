@@ -1,25 +1,32 @@
 package com.petproject.socialapp.controller;
 
+import com.petproject.socialapp.dto.LocationDto;
 import com.petproject.socialapp.model.Location;
 import com.petproject.socialapp.service.LocationService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class LocationController {
 
     LocationService locationService;
 
-    public LocationController(LocationService locationService) {
+    ModelMapper modelMapper;
+
+    public LocationController(LocationService locationService, ModelMapper modelMapper) {
         this.locationService = locationService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/locations")
-    public List<Location> getAllLocations(){
-        return locationService.findAll();
+    public List<LocationDto> getAllLocations(){
+        List<Location> locations = locationService.findAll();
+        return locations.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @GetMapping("/locations/{id}")
@@ -42,6 +49,10 @@ public class LocationController {
     @DeleteMapping("/locations/{id}")
     public void deleteLocation(@PathVariable Long id){
         locationService.deleteById(id);
+    }
+
+    public LocationDto convertToDto(Location location){
+        return modelMapper.map(location, LocationDto.class);
     }
 
 }
