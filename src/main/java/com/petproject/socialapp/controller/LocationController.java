@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,20 +31,23 @@ public class LocationController {
     }
 
     @GetMapping("/locations/{id}")
-    public Location getLocationById(@PathVariable Long id){
-        return locationService.findById(id);
+    public LocationDto getLocationById(@PathVariable Long id){
+        return convertToDto(locationService.findById(id));
     }
 
     @PostMapping("/locations")
-    public void addLocation(@RequestBody Location location){
+    public void addLocation(@RequestBody LocationDto locationDto){
+        Location location = convertToEntity(locationDto);
         locationService.save(location);
     }
 
     @PutMapping("/locations/{id}")
-    public void updateLocation( @PathVariable Long id, @RequestBody Location location){
+    public void updateLocation( @PathVariable Long id, @RequestBody LocationDto locationDto){
         Location existingLocation = locationService.findById(id);
-        BeanUtils.copyProperties(location, existingLocation);
+        BeanUtils.copyProperties(convertToEntity(locationDto), existingLocation);
         locationService.save(existingLocation);
+
+
     }
 
     @DeleteMapping("/locations/{id}")
@@ -51,8 +55,17 @@ public class LocationController {
         locationService.deleteById(id);
     }
 
-    public LocationDto convertToDto(Location location){
+    private LocationDto convertToDto(Location location){
         return modelMapper.map(location, LocationDto.class);
+    }
+
+    private Location convertToEntity(LocationDto locationDto) {
+        Location location = modelMapper.map(locationDto, Location.class);
+//        if (locationDto.getId() != null){
+//            Location oldLocation = locationService.findById(locationDto.getId());
+//
+//        }
+        return location;
     }
 
 }
