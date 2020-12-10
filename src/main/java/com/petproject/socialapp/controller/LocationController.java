@@ -46,8 +46,6 @@ public class LocationController {
         Location existingLocation = locationService.findById(id);
         BeanUtils.copyProperties(convertToEntity(locationDto), existingLocation);
         locationService.save(existingLocation);
-
-
     }
 
     @DeleteMapping("/locations/{id}")
